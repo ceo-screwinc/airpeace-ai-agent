@@ -1,4 +1,4 @@
-# 🤖 Elite Service Coach AI Agent for @Mrbankstips
+# 🤖 AI Agent for AIRPEACE
 
 ## 🚀 Overview & Business Problem
 
