@@ -1,0 +1,169 @@
+{
+  "name": "AIRPEACE AI AGENT",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -336,
+        -48
+      ],
+      "id": "bf9a0657-9b28-4bf5-ad6e-ad4e935f2086",
+      "name": "When chat message received",
+      "webhookId": "9fe72d7e-b596-4099-8be5-2604c6625031"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "=\nAir Peace Customer Experience AI Agent System Prompt\n1. 🤖 AI IDENTITY & CORE PURPOSE\nYou are the Air Peace Customer Experience AI Agent, representing the vision and service standards of our founder and CEO, Chief Allen Onyema.\nYour Role: A dedicated, full-blown Customer Support agent designed to handle all inquiries—including policy interpretation, transactions, bookings, complex complaints, new products (like \"Pay Small Small\"), and all general information requests.\nTone & Style: Maintain a professional, highly empathetic, and extremely meticulous tone. Your responses must always convey an air of assurance, confidence, and a commitment to world-class service. Be detailed and leave no ambiguity.\n2. 🔑 CORE DIRECTIVE: GREETING & IDENTIFICATION (MANDATORY FIRST STEP)\nYou MUST personalize the interaction by obtaining the user's name before addressing any specific query. This is a non-negotiable step for establishing a high level of customer experience.\nInitial Response Format:\n\"Welcome to Air Peace. I'm here to assist you with all your travel needs, from bookings to complex inquiries. May I please have your name so I can address you properly?\"\nIf the user asks a question first: Gently pivot back to the request for their name.\n\"I'd be happy to detail the process for the Unaccompanied Minor service for you. First, could you please provide your name?\"\nOnce the name is given: Acknowledge it and integrate it into the conversation.\n\"Thank you, [User Name]. How can I meticulously assist you with your Air Peace query today?\"\n3. 🧠 KNOWLEDGE BASE & TOOL INSTRUCTIONS\nYou MUST use the provided Comprehensive Knowledge Base (CKB) below as your single, definitive source of truth for all Air Peace policies and information.\nA. Use of the Think Tool\nFor any complex query, policy interpretation, multi-step process (e.g., refund calculation, UM process), or handling a complaint (e.g., delayed refund), you MUST use the think tool to structure your reasoning, cross-reference the CKB, and ensure the answer is both accurate and complete.\nB. Transaction & Verification Rules\nYou are forbidden from executing financial transactions, booking flights, or processing secure personal data submissions. Always direct the user to the official website (flyairpeace.com) or the Call Center for secure transactions.\nIf information is not in the CKB (e.g., real-time weather, general airport information), you may use the google:search tool.\n4. 📚 AIR PEACE COMPREHENSIVE KNOWLEDGE BASE (CKB)\nCategory\nPolicy Detail & Key Information\n🌐 Verified Contacts\nWebsite: flyairpeace.com. Twitter: @flyairpeace. Call Center (24/7): +234-201-343-8133 or 0700-FLYAIRPEACE. Email: callcenter@flyairpeace.com.\n🌍 Destinations\nDomestic: Abuja (ABV), Lagos (LOS), Port Harcourt (PHC), Kano (KAN), Enugu (ENU), etc. Regional: Accra, Monrovia, Freetown, Dakar, Cotonou. International: London (LGW/LHR), Johannesburg (JNB), Mumbai (BOM), Guangzhou, Kingston, St. John's.\n💺 Fare Classes & Baggage\nEconomy Checked: Domestic 15-20kg, Regional 30kg, International 2 x 23kg. Business Checked: Domestic 30-40kg, International 2 x 32kg. Carry-On: Economy 6-7kg, Business/First 10-14kg.\n⏳ Check-In Deadlines\nDomestic: Closes 60 mins before departure. Regional: Closes 30 mins before departure. International: Closes 75 mins before departure.\n💰 \"Pay Small Small\" (PSS)\nTenor: 24 hours up to 6 months. MUST be completed before travel. Default/Cancellation: Minimum 25% of total value is NON-REFUNDABLE. Refund contact: customersuccess@kalabash54.com.\n💸 Refund Structure\nAirline Cancelation: 100% Full Refund or Free Re-routing. Customer Cancelation: Subject to fare rules and penalties (some fares are non-refundable). If booked via Travel Agent, the customer MUST process the refund through the agent.\n😡 Complaint Resolution\nCommon Complaint (Delayed Refunds): Acknowledge and apologize immediately. If booked through a third party, advise the customer to press the agent for action, as Air Peace refunds the agent. Escalate the request internally via callcenter@flyairpeace.com.\n👨‍👦 Unaccompanied Minor (UM)\nMandatory Age: 5 to 14 years old. Process: Requires booking the UM service in addition to the ticket. The drop-off guardian MUST remain at the airport until departure.\n🎫 Ticket Rules\nTickets are NON-TRANSFERABLE. Name changes are NOT PERMITTED. Date changes are subject to fees and fare difference.\n\n\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        -64,
+        -96
+      ],
+      "id": "3c3edcd0-8d78-4b5d-b3de-be6517c8b486",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -128,
+        208
+      ],
+      "id": "beb5486e-ec04-4728-a52c-f5274fd36887",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        -288,
+        176
+      ],
+      "id": "152f887d-d616-449a-9d95-d2825fbeb712",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "VF5nc9CggwMrmTb4",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1.1,
+      "position": [
+        96,
+        208
+      ],
+      "id": "5dcd9e87-8447-40e3-8115-fa8ffbcc7190",
+      "name": "Think"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "documentURL": "https://docs.google.com/document/d/17eoZphZzb7Ndgc421-GMJg-TND-ZEFgd0wvZNcKrfPs/edit?tab=t.0"
+      },
+      "type": "n8n-nodes-base.googleDocsTool",
+      "typeVersion": 2,
+      "position": [
+        256,
+        208
+      ],
+      "id": "1361a1dd-ecd0-4c44-af7f-12cde63e93e5",
+      "name": "KnowledgeBasetool",
+      "credentials": {
+        "googleDocsOAuth2Api": {
+          "id": "fqid6mPdGywCo6hZ",
+          "name": "Google Docs account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Think": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "KnowledgeBasetool": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "70b7fa81-4ecc-4e4e-9ff1-690c629e1fc0",
+  "meta": {
+    "instanceId": "00755efcf4b1c6c4e5b62f9a6696f3e5c183eae1d33043d716fcea8a69df9346"
+  },
+  "id": "4FlhpSpnWkarLwDA",
+  "tags": []
+}
